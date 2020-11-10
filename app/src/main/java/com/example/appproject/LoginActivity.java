@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -23,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText loginEmail, loginPassword;
     TextView registerLink;
-    Button loginButton;
+    FloatingActionButton loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,11 +45,11 @@ public class LoginActivity extends AppCompatActivity {
                 String password = loginPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
-                    loginEmail.setError("First name is required");
+                    loginEmail.setError("Email address is required");
                     return;
                 }
                 if (TextUtils.isEmpty(password)) {
-                    loginPassword.setError("Last name is required");
+                    loginPassword.setError("Password is required");
                     return;
                 }
 

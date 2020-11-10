@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -23,7 +24,7 @@ public class RegisterActivity extends AppCompatActivity {
     private FirebaseAuth fAuth;
 
     private EditText first_name_entry, last_name_entry, email_entry, username_entry, password_entry, password2_entry;
-    private Button register_button;
+    private FloatingActionButton register_button;
     private TextView login_link;
 
     @Override

@@ -4,6 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#2B2B2B"
     tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/home_login"
+        android:layout_width="339dp"
+        android:layout_height="52dp"
+        android:text="Login"
+        app:backgroundTint="#92C505"
+        app:cornerRadius="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/home_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:rippleColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/home_register"
+        android:layout_width="339dp"
+        android:layout_height="52dp"
+        android:layout_marginBottom="176dp"
+        android:text="Register"
+        app:backgroundTint="#92C505"
+        app:cornerRadius="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
