@@ -15,7 +15,7 @@
         android:gravity="left|center_vertical"
         android:paddingLeft="10dp"
         android:text="Sign In"
-        android:textColor="#92C505"
+        android:textColor="#FFFFFF"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/email_login"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,9 +31,10 @@
         android:hint="Email"
         android:inputType="textPersonName"
         android:paddingLeft="10dp"
+        android:drawableLeft="@drawable/email_icon"
         android:shadowColor="#FFFFFF"
         android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
+        android:textColorHint="#AFAFAF"
         app:layout_constraintBottom_toTopOf="@+id/password_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -46,10 +47,11 @@
         android:backgroundTint="@color/white"
         android:ems="10"
         android:hint="Password"
+        android:drawableLeft="@drawable/password_icon"
         android:inputType="textPassword"
         android:padding="10dp"
         android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
+        android:textColorHint="#AFAFAF"
         app:layout_constraintBottom_toTopOf="@+id/button_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.500"
@@ -102,5 +104,5 @@
         app:backgroundTint="#92C505"
         app:layout_constraintBottom_toTopOf="@+id/register_link"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/app_logo" />
+        app:srcCompat="@drawable/arrow_icon" />
 </androidx.constraintlayout.widget.ConstraintLayout>
