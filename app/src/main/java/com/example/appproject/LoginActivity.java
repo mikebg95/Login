@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,7 +21,6 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,8 +37,9 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText loginEmail, loginPassword;
     TextView registerLink;
-    FloatingActionButton loginButton;
+//    FloatingActionButton loginButton;
     ImageView googleLogin;
+    Button loginButton;
 
     @Override
     public void onStart() {
@@ -55,46 +54,80 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login2);
 
         fAuth = FirebaseAuth.getInstance();
 
         // google login
         createRequest();
 
-        loginEmail = findViewById(R.id.email_login);
-        loginPassword = findViewById(R.id.password_login);
-        registerLink = findViewById(R.id.register_link);
-        loginButton = findViewById(R.id.button_login);
-        googleLogin = findViewById(R.id.google_login);
+        loginEmail = findViewById(R.id.email_login2);
+        loginPassword = findViewById(R.id.password_login2);
+        registerLink = findViewById(R.id.register_link2);
+        loginButton = findViewById(R.id.button_login2);
+        googleLogin = findViewById(R.id.google_login2);
+
+        loginEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                String email = loginEmail.getText().toString().trim();
+                if (!hasFocus) {
+                    if (TextUtils.isEmpty(email)) {
+                        loginEmail.setError("Email address is required");
+                    } else {
+                        loginEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        loginEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.correct_icon, 0);
+                    }
+                }
+            }
+        });
+
+        loginPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                String password = loginPassword.getText().toString().trim();
+                if (!hasFocus) {
+                    if (TextUtils.isEmpty(password)) {
+                        loginPassword.setError("Password is required");
+                    } else {
+                        loginPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+                        loginPassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.correct_icon, 0);
+                    }
+                }
+            }
+        });
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                boolean ready = true;
+
                 String email = loginEmail.getText().toString().trim();
                 String password = loginPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
                     loginEmail.setError("Email address is required");
-                    return;
+                    ready = false;
                 }
                 if (TextUtils.isEmpty(password)) {
                     loginPassword.setError("Password is required");
-                    return;
+                    ready = false;
                 }
 
-                fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            makeToast("successfully logged in");
-                            startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
+                if (ready) {
+
+                    fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                makeToast("successfully logged in");
+                                startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
+                            } else {
+                                makeToast("log in failed");
+                            }
                         }
-                        else {
-                            makeToast("log in failed");
-                        }
-                    }
-                });
+                    });
+                }
             }
         });
 
