@@ -120,10 +120,10 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                makeToast("successfully logged in");
+//                                makeToast("successfully logged in");
                                 startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
                             } else {
-                                makeToast("log in failed");
+                                makeToast("Error: " + task.getException().getMessage());
                             }
                         }
                     });

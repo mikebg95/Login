@@ -18,6 +18,31 @@ public class HomePageActivity extends AppCompatActivity {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        boolean emailVerified = user.isEmailVerified();
+
+        if (emailVerified) {
+//                Toast.makeText(getApplicationContext(), "email verified", Toast.LENGTH_SHORT).show();
+        } else {
+            user.sendEmailVerification().addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+//                            Toast.makeText(getApplicationContext(), "verification email sent", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
+                    }
+                    else {
+//                            Toast.makeText(getApplicationContext(), "email verification not sent", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            startActivity(new Intent(getApplicationContext(), VerifyAccountActivity.class));
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
@@ -37,22 +62,23 @@ public class HomePageActivity extends AppCompatActivity {
             String uid = user.getUid();
 
             // TODO: verify email
-            if (emailVerified) {
-                Toast.makeText(getApplicationContext(), "email verified", Toast.LENGTH_SHORT).show();
-            } else {
-                user.sendEmailVerification().addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "verification email sent", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
-                        }
-                        else {
-                            Toast.makeText(getApplicationContext(), "email verification not sent", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-            }
+//            if (emailVerified) {
+////                Toast.makeText(getApplicationContext(), "email verified", Toast.LENGTH_SHORT).show();
+//            } else {
+//                user.sendEmailVerification().addOnCompleteListener(this, new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if (task.isSuccessful()) {
+////                            Toast.makeText(getApplicationContext(), "verification email sent", Toast.LENGTH_SHORT).show();
+//                            startActivity(new Intent(getApplicationContext(), HomePageActivity.class));
+//                        }
+//                        else {
+////                            Toast.makeText(getApplicationContext(), "email verification not sent", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//                });
+//                startActivity(new Intent(getApplicationContext(), VerifyAccountActivity.class));
+//            }
         }
     }
 }
